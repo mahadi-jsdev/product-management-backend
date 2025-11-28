@@ -8,16 +8,11 @@ const middleware = express();
 //middleware
 middleware.use(
   cors({
-    origin: ["http://localhost:3000"],
-    credentials: true,
-    allowedHeaders: [
-      "Content-Type",
-      "Origin",
-      "Authorization",
-      "Accept",
-      "X-Requested-With",
-      "Access-Control-Allow-Origin",
+    origin: [
+      "http://localhost:3000",
+      "https://product-management-dashboard-ruby.vercel.app",
     ],
+    credentials: true,
   }),
 );
 middleware.use(cookieParser());
