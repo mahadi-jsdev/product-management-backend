@@ -26,34 +26,10 @@ auth.post("/login", validate(userZod), async (req, res, next) => {
     const expires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     const session = await encrypt({ user: userPayload, expires });
 
-    res.cookie("session", session, {
-      httpOnly: true,
-      expires,
-      secure: true,
-      sameSite: "lax",
-      path: "/",
-    });
-
     res.status(StatusCodes.OK).json({
       success: true,
+      session: session,
       message: "Login Successful",
-    });
-  } catch (err) {
-    next(err);
-  }
-});
-
-auth.delete("/logout", (_, res, next) => {
-  try {
-    res.clearCookie("session", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
-      path: "/",
-    });
-    res.status(StatusCodes.OK).json({
-      success: true,
-      message: "Logged out successfully",
     });
   } catch (err) {
     next(err);
